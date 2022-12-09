@@ -15,12 +15,17 @@ public class Car4x4 : MonoBehaviour
 
     // if goalCar, it can bypass the right wall
     public bool goalCar;
+
+    [SerializeField]
+    private GameObject overlay;
     
     private bool isDragging = false;
     private bool stopMoving = false;    // true to stop moving. helps with "collisions"
     private float offset = 0.0f;
 
     void Awake() {
+        overlay.SetActive(false);
+
         midpoint = (pos_length[2]+pos_length[1])/2;
 
         if (horizontal) {
@@ -43,6 +48,21 @@ public class Car4x4 : MonoBehaviour
 
 
     public void OnMouseUp() {
+        // check if goal car is past the right wall bound (aka success)
+        if (goalCar) {
+            Vector2 pos = transform.position;
+            if (pos.x > pos_length[2]*2) {
+                Debug.Log("success");
+                isDragging = false;
+                GetComponent<Collider2D>().isTrigger = false;
+
+                // TODO: show success overlay
+                overlay.SetActive(true);
+
+                return;
+            }
+        }
+
         // snap to place
         if (horizontal) {
             Vector2 pos = transform.position;
