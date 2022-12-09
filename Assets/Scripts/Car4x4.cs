@@ -17,7 +17,6 @@ public class Car4x4 : MonoBehaviour
     private bool stopMoving = false;    // true to stop moving. helps with "collisions"
     private float offset = 0.0f;
 
-
     void Awake() {
         midpoint = (pos_length[2]+pos_length[1])/2;
 
