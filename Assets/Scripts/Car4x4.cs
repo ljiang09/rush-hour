@@ -12,6 +12,9 @@ public class Car4x4 : MonoBehaviour
 
     // if true, the car moves horizontally. otherwise, vertical
     public bool horizontal;
+
+    // if goalCar, it can bypass the right wall
+    public bool goalCar;
     
     private bool isDragging = false;
     private bool stopMoving = false;    // true to stop moving. helps with "collisions"
@@ -85,9 +88,10 @@ public class Car4x4 : MonoBehaviour
                 Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 float bounds = pos_length[2];
 
+                // left wall, right wall
                 if (transform.position.x < -bounds && point.x - offset < -bounds) {
                     return;
-                } else if (transform.position.x > bounds && point.x - offset > bounds) {
+                } else if (!goalCar && transform.position.x > bounds && point.x - offset > bounds) {
                     return;
                 }
                 point.y = transform.position.y;
@@ -97,6 +101,7 @@ public class Car4x4 : MonoBehaviour
                 Vector2 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 float bounds = pos_length[2];
 
+                // bottom wall, top wall
                 if (transform.position.y < -bounds && point.y - offset < -bounds) {
                     return;
                 } else if (transform.position.y > bounds && point.y - offset > bounds) {
