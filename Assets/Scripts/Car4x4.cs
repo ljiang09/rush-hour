@@ -6,7 +6,6 @@ public class Car4x4 : MonoBehaviour
 {
     // pos_length is for the 2 available positions along the long side of the car
     private float[] pos_length = new float[] {-1.84f, 0.0f, 1.84f};
-    private float[] pos_width = new float[] {-2.76f, -0.92f, 0.92f, 2.76f};
 
     private float midpoint;
 
@@ -52,11 +51,9 @@ public class Car4x4 : MonoBehaviour
         if (goalCar) {
             Vector2 pos = transform.position;
             if (pos.x > pos_length[2]*2) {
-                Debug.Log("success");
                 isDragging = false;
                 GetComponent<Collider2D>().isTrigger = false;
 
-                // TODO: show success overlay
                 overlay.SetActive(true);
 
                 return;
