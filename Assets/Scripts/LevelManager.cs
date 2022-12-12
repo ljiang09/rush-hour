@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+ using UnityEngine.EventSystems;
 
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     // score is the text object. counter is the code's version to easily keep track
     // public Text score;
@@ -23,10 +24,27 @@ public class LevelManager : MonoBehaviour
     //     m_Camera = Camera.main;
     // }
 
+    private GameObject[] cars;
+
+    void Awake() {
+        cars = GameObject.FindGameObjectsWithTag("Car");
+    }
+
+
     public void ChangeScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
     }
 
+
+    public void OnDrag(PointerEventData data) {
+        Debug.Log("On Drag");
+    }
+
+// ON MOUSE UP, CHECK IF ANY OBJECTS HAVE MOVED
+
+    public void OnEndDrag(PointerEventData eventData) {
+        Debug.Log("End Drag");
+    }
 
     // void Update() {
     //     if (Input.GetMouseButtonDown(0) && timer != 0) {
